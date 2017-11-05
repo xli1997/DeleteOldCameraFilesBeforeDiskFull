@@ -3,12 +3,12 @@ import java.util.Date;
 
 public class test {
 
-	public static void removeDirectory(File dir) {
+	public static void RemoveDirectory(File dir) {
 		if (dir.isDirectory()) {
 			File[] files = dir.listFiles();
 			if (files != null && files.length > 0) {
 				for (File aFile : files) {
-					removeDirectory(aFile);
+					RemoveDirectory(aFile);
 				}
 			}
 			dir.delete();
@@ -17,7 +17,7 @@ public class test {
 		}
 	}
 
-	public static void findOldestDir(String path, StringBuilder fileName,
+	public static void FindOldestDir(String path, StringBuilder fileName,
 			StringBuilder filePath) {
 		String file;
 		File folder = new File(path);
@@ -54,11 +54,11 @@ public class test {
 
 					StringBuilder frontyardFileName = new StringBuilder();
 					StringBuilder frontyardFilePath = new StringBuilder();
-					findOldestDir(frontyard, frontyardFileName, frontyardFilePath);
+					FindOldestDir(frontyard, frontyardFileName, frontyardFilePath);
 
 					StringBuilder backyardFileName = new StringBuilder();
 					StringBuilder backyardFilePath = new StringBuilder();
-					findOldestDir(backyard, backyardFileName, backyardFilePath);
+					FindOldestDir(backyard, backyardFileName, backyardFilePath);
 
 					int comparsionResult;
 					if(backyardFileName.toString().isEmpty() && !frontyardFileName.toString().isEmpty())
@@ -73,17 +73,17 @@ public class test {
 					if (comparsionResult == 0) //delete one for each
 					{
 						File dir_back = new File(backyardFilePath.toString());
-						removeDirectory(dir_back);
+						RemoveDirectory(dir_back);
 						System.out.println("deleted "+backyardFilePath.toString());
 						File dir_front = new File(frontyardFilePath.toString());
-						removeDirectory(dir_front);
+						RemoveDirectory(dir_front);
 						System.out.println("deleted "+frontyardFilePath.toString());
 					}
 
 					else if (comparsionResult > 0) // backyard is older, delete backyard file
 					{
 						File dir = new File(backyardFilePath.toString());
-						removeDirectory(dir);
+						RemoveDirectory(dir);
 						System.out.println("deleted "+backyardFilePath.toString());
 					}
 
