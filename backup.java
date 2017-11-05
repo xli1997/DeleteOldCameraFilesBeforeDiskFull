@@ -12,12 +12,12 @@ import java.nio.file.Files;
 public class Backup {
 
 	// delete dir/file if path is given, path can not be null
-	public static void removeAFileOrDirectory(File dir) {
+	public static void RemoveAFileOrDirectory(File dir) {
 		if (dir.isDirectory()) {
 			File[] files = dir.listFiles();
 			if (files != null && files.length > 0) {
 				for (File aFile : files) {
-					removeAFileOrDirectory(aFile);
+					RemoveAFileOrDirectory(aFile);
 				}
 			}
 			dir.delete();
@@ -26,13 +26,13 @@ public class Backup {
 		}
 	}
 	
-	private static void copyAFile(File source, File dest)
+	private static void CopyAFile(File source, File dest)
 	        throws IOException {
 	    Files.copy(source.toPath(), dest.toPath());
 	}
 
 	// copy scr single dir/file to dst, dst dir must none exist
-	public static void copyAFileOrDirectory(File sourceLocation, File targetLocation)
+	public static void CopyAFileOrDirectory(File sourceLocation, File targetLocation)
 			throws IOException{
 
 		if (sourceLocation.isDirectory()) {
@@ -42,7 +42,7 @@ public class Backup {
 				
 				String[] children = sourceLocation.list();
 				for (int i = 0; i < children.length; i++) {
-					copyAFileOrDirectory(new File(sourceLocation, children[i]), new File(
+					CopyAFileOrDirectory(new File(sourceLocation, children[i]), new File(
 							targetLocation, children[i]));
 				}
 			}
@@ -58,7 +58,7 @@ public class Backup {
 			}
 			in.close();
 			out.close();*/
-			copyAFile(sourceLocation, targetLocation);
+			CopyAFile(sourceLocation, targetLocation);
 		}
 	}
 
@@ -77,7 +77,7 @@ public class Backup {
 						// only compare name difference if both are directory
 						if(listOfSrcFiles[i].getName().toString().equals(listOfDstFiles[j].getName().toString())){
 							dirFound = 1;
-							System.out.println("found 1");
+							//System.out.println("found 1");
 							BackupDirectory(listOfSrcFiles[i], listOfDstFiles[j]);
 						}
 					}
@@ -89,7 +89,7 @@ public class Backup {
 					str.append(listOfSrcFiles[i].getName());
 					System.out.println("go to dir:" + str.toString());
 					File dst = new File(str.toString());
-					copyAFileOrDirectory(listOfSrcFiles[i], dst);
+					CopyAFileOrDirectory(listOfSrcFiles[i], dst);
 				}
 			}
 			else  //is file
@@ -97,8 +97,8 @@ public class Backup {
 				int fileFound = 0;
 				for (int j = 0; j < listOfDstFiles.length; j++) {
 					if(listOfDstFiles[j].isFile()){
-						long bytes1 = listOfSrcFiles[i].length();
-						long bytes2 = listOfDstFiles[j].length();
+						long bytes_i = listOfSrcFiles[i].length();
+						long bytes_j = listOfDstFiles[j].length();
 						
 /*						Path path1 = listOfSrcFiles[i].toPath();
 						BasicFileAttributes attributes1 = Files.readAttributes(path1, BasicFileAttributes.class);
@@ -117,9 +117,9 @@ public class Backup {
 						// compare name, mod date and bytes if both are files
 						if(listOfSrcFiles[i].getName().toString().equals(listOfDstFiles[j].getName().toString()) &&
 								listOfSrcFiles[i].lastModified() == listOfDstFiles[j].lastModified() &&
-								bytes1 == bytes2){
+								bytes_i == bytes_j){
 							fileFound = 1;
-							System.out.println("found 2");
+							//System.out.println("found 2");
 						}
 					}
 				}
@@ -146,12 +146,12 @@ public class Backup {
 						// only compare name difference if both are directory
 						if(listOfDstFiles[i].getName().toString().equals(listOfSrcFiles[j].getName().toString())){
 							dirFound = 1;
-							System.out.println("found 3");
+							//System.out.println("found 3");
 						}		
 					}
 				}
 				if (dirFound == 0){
-					removeAFileOrDirectory(listOfDstFiles[i]);
+					RemoveAFileOrDirectory(listOfDstFiles[i]);
 					System.out.println("remove fir: "+ listOfDstFiles[i].toPath());
 				}
 			}
@@ -159,19 +159,19 @@ public class Backup {
 				int fileFound = 0;
 				for (int j = 0; j < listOfSrcFiles.length; j++) {
 					if(listOfSrcFiles[j].isFile()){
-						long bytes1 = listOfDstFiles[i].length();
-						long bytes2 = listOfSrcFiles[j].length();
+						long bytes_i = listOfDstFiles[i].length();
+						long bytes_j = listOfSrcFiles[j].length();
 						// compare name, mod date and bytes if both are files
 						if(listOfDstFiles[i].getName().toString().equals(listOfSrcFiles[j].getName().toString()) &&
 								listOfDstFiles[i].lastModified() == listOfSrcFiles[j].lastModified() &&
-								bytes1 == bytes2){
+								bytes_i == bytes_j){
 							fileFound = 1;
-							System.out.println("found 4");
+							//System.out.println("found 4");
 						}		
 					}
 				}
 				if (fileFound == 0){
-					removeAFileOrDirectory(listOfDstFiles[i]);
+					RemoveAFileOrDirectory(listOfDstFiles[i]);
 					System.out.println("remove file:"+ listOfDstFiles[i].toPath());
 				}
 			}
@@ -193,12 +193,12 @@ public class Backup {
 			System.out.println(date.toString());
 			if(dst.exists())
 			{
-				long size, size2;			
+				long size, size_free;			
 				size = dst.getTotalSpace();
-				size2 = dst.getFreeSpace();
+				size_free = dst.getFreeSpace();
 				System.out.format("free %dGB ; total %dGB ; %f%% free\n",
-						size2 / 1000000000, size / 1000000000, 100
-								* (float) size2 / (float) size);
+						size_free / 1000000000, size / 1000000000, 100
+								* (float) size_free / (float) size);
 	
 				//File test = new File(testDir);
 						

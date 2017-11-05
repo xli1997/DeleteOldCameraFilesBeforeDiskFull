@@ -37,19 +37,19 @@ public class test {
 		String frontyard = "F:\\MotionCam\\Frontyard";
 		String backyard = "F:\\MotionCam\\Backyard";
 
-		long size, size2;
+		long size, size_free;
 		File f = new File(frontyard);
 		while (true) {
 			Thread.sleep(1000*3600*4);
 			System.out.println("tick");
 			if (f.exists()) {
 				size = f.getTotalSpace();
-				size2 = f.getFreeSpace();
+				size_free = f.getFreeSpace();
 				
 				Date date = new Date();
 			    System.out.println(date.toString());
-				System.out.format("free %dGB ; total %dGB ; %f%% free\n", size2/1000000000, size/1000000000, 100*(float)size2/(float)size);
-				if (size >= size2 * 5) {
+				System.out.format("free %dGB ; total %dGB ; %f%% free\n", size_free/1000000000, size/1000000000, 100*(float)size_free/(float)size);
+				if (size >= size_free * 5) {
 					System.out.println("try to free some space");
 
 					StringBuilder frontyardFileName = new StringBuilder();
@@ -72,11 +72,11 @@ public class test {
 
 					if (comparsionResult == 0) //delete one for each
 					{
-						File dir1 = new File(backyardFilePath.toString());
-						removeDirectory(dir1);
+						File dir_back = new File(backyardFilePath.toString());
+						removeDirectory(dir_back);
 						System.out.println("deleted "+backyardFilePath.toString());
-						File dir2 = new File(frontyardFilePath.toString());
-						removeDirectory(dir2);
+						File dir_front = new File(frontyardFilePath.toString());
+						removeDirectory(dir_front);
 						System.out.println("deleted "+frontyardFilePath.toString());
 					}
 
