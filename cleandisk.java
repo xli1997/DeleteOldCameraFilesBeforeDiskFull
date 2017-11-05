@@ -1,7 +1,7 @@
 import java.io.File;
 import java.util.Date;
 
-public class test {
+public class CleanDisk {
 
 	public static void RemoveDirectory(File dir) {
 		if (dir.isDirectory()) {
