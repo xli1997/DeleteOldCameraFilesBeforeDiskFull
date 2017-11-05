@@ -9,7 +9,7 @@ import java.nio.file.attribute.*;
 import java.nio.file.Path;
 import java.nio.file.Files;
 
-public class backup {
+public class Backup {
 
 	// delete dir/file if path is given, path can not be null
 	public static void removeAFileOrDirectory(File dir) {
@@ -62,7 +62,7 @@ public class backup {
 		}
 	}
 
-	public static void backupDirectory(File sourceDir , File targetDir)
+	public static void BackupDirectory(File sourceDir , File targetDir)
 			throws IOException{
 		File[] listOfSrcFiles = sourceDir.listFiles();
 		File[] listOfDstFiles = targetDir.listFiles();
@@ -78,7 +78,7 @@ public class backup {
 						if(listOfSrcFiles[i].getName().toString().equals(listOfDstFiles[j].getName().toString())){
 							dirFound = 1;
 							System.out.println("found 1");
-							backupDirectory(listOfSrcFiles[i], listOfDstFiles[j]);
+							BackupDirectory(listOfSrcFiles[i], listOfDstFiles[j]);
 						}
 					}
 				}
@@ -204,7 +204,7 @@ public class backup {
 						
 				if (src.exists() && src.exists()) {
 					System.out.println("starting bacup process");
-					backupDirectory(src, dst);
+					BackupDirectory(src, dst);
 					System.out.println("done, wait for 24h");
 					Thread.sleep(1000*3600*24);
 					break;
