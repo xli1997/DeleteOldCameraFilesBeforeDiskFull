@@ -184,9 +184,6 @@ public class backup {
 		String dstDir = "G:\\MyBookBackup";
 		File src = new File(srcDir);
 		File dst = new File(dstDir);
-/*		String testDir = "C:\\Users\\Xiaowei Li\\test\\testDir";
-		File test1 = new File("C:\\Users\\Xiaowei Li\\test\\test1.txt");
-		File test2 = new File("C:\\Users\\Xiaowei Li\\test\\test2.txt");*/
 
 
 
